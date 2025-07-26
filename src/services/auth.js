@@ -41,7 +41,7 @@ export const loginUser = async ({ email, password }) => {
   if (!isEqual) {
     throw createHttpError(401, 'Unauthorized');
   }
-
+  await SessionCollection.deleteOne({ userId: user._id });
   const sessionData = createSession();
   return await SessionCollection.create({
     ...sessionData,
