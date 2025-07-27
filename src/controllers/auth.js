@@ -50,7 +50,7 @@ export const logoutUserController = async (req, res) => {
     await logoutUser(sessionId);
   }
 
-  clearSession();
+  clearSession(res);
 
   res.status(204).send();
 };
