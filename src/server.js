@@ -7,6 +7,7 @@ import errorHandler from './middlewares/errorHandler.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
 import authRouter from './routers/auth.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 export const startServer = () => {
   const PORT = getEnvVar('PORT', 3000);
@@ -21,9 +22,11 @@ export const startServer = () => {
       transport: {
         target: 'pino-pretty',
       },
+      level: 'error',
     }),
   );
 
+  app.use('/api-docs', swaggerDocs());
   app.use('/contacts', contactsRouter);
   app.use('/auth', authRouter);
 

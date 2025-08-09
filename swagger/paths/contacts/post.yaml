@@ -1,0 +1,72 @@
+tags:
+  - Contacts
+summary: Create contact
+operationId: createContact
+description:
+  'Creates a new contact record for the authenticated user using multipart/form-data.
+  Requires basic contact information such as name, phone number, and contact type.
+  Optional fields include email, photo, and favourite status.
+  This endpoint is ideal for adding new entries to a contact book or CRM system.'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - name
+          - phoneNumber
+          - contactType
+        properties:
+          name:
+            type: string
+            description: "Contact's name"
+            example: 'John'
+          phoneNumber:
+            type: string
+            description: "Contact's phone number"
+            example: '+380200000000'
+          email:
+            type: string
+            description: "Contact's email"
+            example: 'qwe@gmail.com'
+          isFavourite:
+            type: boolean
+            description: 'Whether is contact favourite'
+            example: true
+          contactType:
+            type: string
+            description: "Contact's type"
+            enum: ['home', 'work', 'personal']
+            example: 'personal'
+          photo:
+            type: string
+            description: "Contact's photo"
+            format: binary
+responses:
+  '201':
+    description: Create a contact
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a contact!
+            data:
+              $ref: '../../components/schemas/contact.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

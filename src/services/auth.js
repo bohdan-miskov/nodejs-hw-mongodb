@@ -140,7 +140,7 @@ export const resetPassword = async ({ password, token }) => {
 
   try {
     entries = jwt.verify(token, getEnvVar('JWT_SECRET'));
-  } catch (error) {
+  } catch (err) {
     if (
       err instanceof Error &&
       (err.name === 'JsonWebTokenError' || err.name === 'NotBeforeError')
