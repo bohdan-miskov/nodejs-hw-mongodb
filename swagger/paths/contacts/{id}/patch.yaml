@@ -1,0 +1,77 @@
+tags:
+  - Contacts
+summary: Update contact by id
+operationId: updateContact
+description:
+  "Updates an existing contact's information by its unique identifier.
+  Accepts multipart/form-data with any combination of fields to be updated.
+  Only the fields provided in the request will be modified.
+  This endpoint is suitable for editing contact details such as name, phone number, email, or photo."
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '688ddec8932e19985a0c4dd0'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: "Contact's name"
+            example: 'John'
+          phoneNumber:
+            type: string
+            description: "Contact's phone number"
+            example: '+380200000000'
+          email:
+            type: string
+            description: "Contact's email"
+            example: 'qwe@gmail.com'
+          isFavourite:
+            type: boolean
+            description: 'Whether is contact favourite'
+            example: true
+          contactType:
+            type: string
+            description: "Contact's type"
+            enum: ['home', 'work', 'personal']
+            example: 'personal'
+          photo:
+            type: string
+            description: "Contact's photo"
+            format: binary
+responses:
+  '200':
+    description: 'Update contact by id'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully patched a contact!'
+            data:
+              $ref: '../../../components/schemas/contact.yaml'
+  '400':
+    $ref: '../../../components/responses/400.yaml'
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/contacts/404.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml
