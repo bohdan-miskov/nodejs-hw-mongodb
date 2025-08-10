@@ -1,0 +1,44 @@
+tags:
+  - Contacts
+summary: Get contact by id
+operationId: getContact
+description:
+  'Retrieves detailed information about a specific contact by its unique identifier.
+  The contact must belong to the authenticated user.
+  Returns full contact data including name, phone number, email, type, photo, and favourite status.
+  Useful for viewing or editing individual contact profiles.'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '688ddec8932e19985a0c4dd0'
+responses:
+  '200':
+    description: 'Get contact by id'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found contact with id 688ddec8932e19985a0c4dd0!
+            data:
+              $ref: ../../../components/schemas/contact.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/contacts/404.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml
