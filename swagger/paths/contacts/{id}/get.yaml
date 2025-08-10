@@ -18,7 +18,7 @@ parameters:
       example: '688ddec8932e19985a0c4dd0'
 responses:
   '200':
-    description: :"Get contact by id"
+    description: 'Get contact by id'
     content:
       application/json:
         schema:
