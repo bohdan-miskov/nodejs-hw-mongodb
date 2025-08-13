@@ -1,4 +1,4 @@
-description: NotFoundError
+description: Conflict
 content:
   application/json:
     schema:
@@ -6,13 +6,10 @@ content:
       required:
         - status
         - message
-        - data
       properties:
         status:
           type: integer
-          example: 404
+          example: 409
         message:
           type: string
-          example: Contact not found
-        data:
-          type: object
+          example: Email in use

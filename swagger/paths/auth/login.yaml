@@ -1,0 +1,63 @@
+tags:
+  - Auth
+summary: Login user
+operationId: loginUser
+description:
+  'Authenticates a user using email and password. On success, sets two HttpOnly cookies:
+  `sessionId` and `refreshToken`, and returns session data with a 200 status code.
+  Returns 400 for invalid input or 401 for incorrect credentials.'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            description: User's email
+            example: 'john@gmail.com'
+          password:
+            type: string
+            description: User's password
+            example: 'john1234'
+responses:
+  '200':
+    description: Log in user
+    headers:
+      Set-Cookie-Session:
+        description: Session id
+        schema:
+          type: string
+          example: sessionId=6884e31c1b41310ca1ba4c57; Path=/; HttpOnly
+      Set-Cookie-Refresh:
+        description: Refresh token
+        schema:
+          type: string
+          example: refreshToken=lO7079rgjRZ9e704WMBdZ5Ab4dFusbZjX58ekL3b; Path=/; HttpOnly
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in an user!
+            data:
+              $ref: '../../components/schemas/session.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

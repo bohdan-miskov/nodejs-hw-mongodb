@@ -33,7 +33,7 @@ requestBody:
           email:
             type: string
             description: "Contact's email"
-            example: 'qwe@gmail.com'
+            example: 'john@gmail.com'
           isFavourite:
             type: boolean
             description: 'Whether is contact favourite'
@@ -72,6 +72,6 @@ responses:
   '401':
     $ref: ../../../components/responses/401.yaml
   '404':
-    $ref: ../../../components/responses/contacts/404.yaml
+    $ref: ../../../components/responses/404.yaml
   '500':
     $ref: ../../../components/responses/500.yaml
