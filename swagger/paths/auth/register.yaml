@@ -1,0 +1,57 @@
+tags:
+  - Auth
+summary: Register user
+operationId: registerUser
+description:
+  'Creates a new user account. Requires name, email, and password in the request body.
+  On success, returns the newly created user object and a 201 status code.
+  If the email is already registered, returns a 409 conflict error.'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            description: User's name
+            example: 'John'
+          email:
+            type: string
+            description: User's email
+            example: 'john@gmail.com'
+          password:
+            type: string
+            description: User's password
+            example: 'john1234'
+responses:
+  '201':
+    description: Register user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Successfully registered a user!'
+            data:
+              $ref: '../../components/schemas/user.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '409':
+    $ref: '../../components/responses/auth/409.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

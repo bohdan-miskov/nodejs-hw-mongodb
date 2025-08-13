@@ -1,0 +1,47 @@
+tags:
+  - Auth
+summary: Refresh user
+operationId: refreshUser
+description: "Refreshes the user's session using the `refreshToken` cookie.
+  Returns new `sessionId` and `refreshToken` cookies along with updated session data.
+  Requires both `sessionId` and `refreshToken` cookies. Returns 401 or 404 if tokens are invalid or expired."
+security:
+  - sessionCookie: []
+  - refreshCookie: []
+responses:
+  '200':
+    description: Refresh user
+    headers:
+      Set-Cookie-Session:
+        description: Session id
+        schema:
+          type: string
+          example: sessionId=6884e31c1b41310ca1ba4c57; Path=/; HttpOnly
+      Set-Cookie-Refresh:
+        description: Refresh token
+        schema:
+          type: string
+          example: refreshToken=lO7079rgjRZ9e704WMBdZ5Ab4dFusbZjX58ekL3b; Path=/; HttpOnly
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully refreshed a session!'
+            data:
+              $ref: '../../components/schemas/session.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

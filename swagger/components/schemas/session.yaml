@@ -1,0 +1,8 @@
+type: object
+required:
+  - accessToken
+properties:
+  accessToken:
+    type: string
+    description: Session's access token
+    example: '58Qgj/tXqpkR0SCK/8slqnTa/w1Q5xfJYRo2bGtT'

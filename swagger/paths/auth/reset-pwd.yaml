@@ -1,0 +1,54 @@
+tags:
+  - Auth
+summary: Reset password
+operationId: resetUserPwd
+description:
+  "Resets the user's password using a valid reset token. Requires the new password and token in the request body.
+  On success, updates the password and returns a confirmation message with a 200 status code.
+  Returns 400 for invalid input, 401 for unauthorized access, or 404 if the token is invalid or expired."
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - password
+          - token
+        properties:
+          password:
+            type: string
+            description: User's new password
+            example: 'john1234'
+          token:
+            type: string
+            description: User's password reset token
+            example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODhkZGMyZTJiYjFjNzkzYwfhM2M1MDMiLCJlbWFpbCI6Im1pc2tvdmJvaGRhbjIwMDdAZ21haWwuY29tIiwiaWF0dfdgxNzU0MTI3NDM0LCJleHAiOjE3NTQxMjc3MzR9.RztZf2h8e_0I6aSXpZ2fphQag1tfbdbhSHXQXWCtso'
+responses:
+  '200':
+    description: Reset user password
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Password has been successfully reset.
+            data:
+              type: object
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'
