@@ -1,0 +1,14 @@
+tags:
+  - Auth
+summary: Log out user
+operationId: logoutUser
+description:
+  'Logs out the currently authenticated user by clearing the session cookie.
+  Returns a 204 No Content response. Requires authentication via `sessionId` cookie.'
+security:
+  - sessionCookie: []
+responses:
+  '204':
+    description: Log out user
+  '500':
+    $ref: '../../components/responses/500.yaml'

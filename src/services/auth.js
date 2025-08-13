@@ -45,7 +45,7 @@ export const registerUser = async (payload) => {
 export const loginUser = async ({ email, password }) => {
   const user = await UserCollection.findOne({ email });
   if (!user) {
-    throw createHttpError(404, 'User not found');
+    throw createHttpError(401, 'Unauthorized');
   }
 
   const isEqual = await bcrypt.compare(password, user.password);
